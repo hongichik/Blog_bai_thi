@@ -1,12 +1,13 @@
 <template>
     <ul id="navigation">
         <li> <a href="/about">Giới thiệu</a></li>
+        <li> <a href="/Blog">Bài viết</a></li>
         <li v-for="Categoriy in Categories" :key="Categoriy.value">
-            <a :href="'/Category?name='+Categoriy.name">{{Categoriy.name}}</a>
+            <a :href="'/Category/'+Categoriy.name">{{Categoriy.name}}</a>
             
             <ul v-if="Categoriy.Chill[0] != null" class="submenu">
                 <li v-for="CategoriyChild in Categoriy.Chill" :key="CategoriyChild.value">
-                    <a :href="'/Category?name='+CategoriyChild.name">{{CategoriyChild.name}}</a>
+                    <a :href="'/Category/'+CategoriyChild.name">{{CategoriyChild.name}}</a>
                 </li>
             </ul>
         </li>
@@ -34,7 +35,6 @@ export default {
             }
         })
         .then(data => {
-            console.log(data.data);
             this.Categories = data.data;
         })
         .catch(error=>{

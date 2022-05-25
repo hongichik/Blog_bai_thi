@@ -45,18 +45,19 @@ methods: {
         else
         {
             let fromData = new FormData();
-            fromData.append('fullname',this.name);
-            fromData.append('Gmail',this.Gamil);
-            fromData.append('Comment',this.Content);
+            fromData.append('name',this.name);
+            fromData.append('gmail',this.Gamil);
+            fromData.append('content',this.Content);
 
 
             axios.defaults.headers.post['Accept'] = 'application/json'
-            await axios.post('/Feedback', fromData,{
+            await axios.post('/api/CeaterContact', fromData,{
                     headers: {
                     Accept: 'application/json'
                 }
             })
             .then(data => {
+                console.log(data.data)
                 if(data.data)
                 {
                    this.error = "Gửi đóng góp thành công. Cảm ơn bạn đã đóng góp ý kiến.";
@@ -66,6 +67,7 @@ methods: {
                 }
             })
             .catch(error=>{
+                console.log(error.response.data)
                 this.error = "Đã có lỗi xảy ra trong quá trình gửi đóng góp ý kiến.";
             })
         }

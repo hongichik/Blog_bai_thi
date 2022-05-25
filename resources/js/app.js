@@ -20,6 +20,7 @@ Vue.component('user-category', require('./components/user/category.vue').default
 
 Vue.component('user-feedback', require('./components/user/temp/Feedback.vue').default);
 Vue.component('user-searchpost', require('./components/user/temp/SearchPost.vue').default);
+Vue.component('user-comment', require('./components/user/Comment.vue').default);
 
 const app = new Vue({
 }).$mount('#app')

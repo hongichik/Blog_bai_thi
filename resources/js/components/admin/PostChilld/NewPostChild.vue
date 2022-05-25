@@ -104,7 +104,7 @@ export default {
         {
             const [file] = this.$refs.FileImg.files
             let fromData = new FormData();
-            fromData.append('name',this.namePosts);
+            fromData.append('name',this.namePosts.replace(/[&\/\\,()$~%.'":*?<>{}]/g, ''));
             fromData.append('image',file);
             fromData.append('summary',this.summary);
             fromData.append('post_id',this.id);
@@ -119,6 +119,7 @@ export default {
                 this.$router.push({path: '/ListPostChilld/'+this.id});
             })
             .catch(error=>{
+                this.errors.namePosts = "Tên bài đã bị trùng"
                 console.log(error.response.data);
             })
         }

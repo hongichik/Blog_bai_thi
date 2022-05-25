@@ -1,23 +1,18 @@
 <template>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h5 class="card-header">Danh sách bài học của bạn</h5>
+            <h5 class="card-header">Danh sách bài học con - trang : {{this.currentPage}}</h5>
                 <div class="card-body">
                 <div style="display: flex;justify-content: space-between;">
                 <div class="form-group ">
                     <button class="btn btn-primary" @click="$router.go(-1)">Quay lại</button>
                     <router-link :to="'/NewPostChild/'+id" class="btn btn-primary">Thêm mới</router-link >
                 </div>
-                 <nav v-if="Countpage > 1" aria-label="Page navigation example" class="ml-3">
+                <nav v-if="Post.last_page > 1" aria-label="Page navigation example" class="ml-3">
                     <ul class="pagination">
-                        <li class="page-item page-link" @click="getPostChill(page -1)"> Quay lại</li>
-                        <li class="page-item page-link">1</li>
-                        <li class="page-item page-link">-></li>
-                        <li class="page-item page-link">{{Countpage}}</li>
-                        <li class="page-item page-link">Trang hiện tại {{page}}</li>
-                        <li class="page-item page-link" @click="getPostChill(page +1)">Trang tiếp theo</li>
+                        <li v-for="(data)  in Post.links" :key="data.value" class="page-item page-link" @click="getPostChill(data.label,data.url)">{{data.label}}</li>
                     </ul>
-                </nav>               
+                </nav>            
                 </div>
                 <table class="table">
                     <thead>
@@ -30,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data,index)  in Post" :key="data.value">
+                        <tr v-for="(data,index)  in Post.data" :key="data.value">
                             <th>{{index+1}}</th>
                             <td>{{data.name}}</td>
                             <td>{{data.summany}}</td>
@@ -55,9 +50,10 @@ export default {
   data () {
     return {
         id: null,
-        Post:null,
+        Post:"",
         Countpage:1,
         page: 1,
+        currentPage:1,
     }
   },
   created () {
@@ -66,8 +62,7 @@ export default {
     else
         this.id = this.$route.params.id;
       this.CheckPermissin()
-      this.getPage()
-      this.getPostChill(1)
+      this.getPostChill(1,'aa')
   },
   methods: {
     async btnDeletePostChill(id)
@@ -79,8 +74,7 @@ export default {
             }
         })
         .then(data => {
-            this.getPage()
-            this.getPostChill(this.page)    
+            this.getPostChill(this.currentPage,'aa')    
         })
         .catch(error=>{
             console.log(error);
@@ -89,44 +83,32 @@ export default {
       btnUpdatePostChill(id){
         this.$router.push({path: '/UpdatePostChild/'+id});
       },
-      async getPage()
+      async getPostChill(page,url)
       {
-        axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/CountPostChill?id='+this.id,{
-                headers: {
-                Accept: 'application/json'
-            }
-        })
-        .then(data => {
-            this.Countpage = data.data;
-        })
-        .catch(error=>{
-            console.log(error.response.data);
-        })
-      },
-      async getPostChill(page)
-      {
-        if(page == 0)
+        if(url != null)
         {
-            page = 1;
-        }
-        if(page >this.Countpage)
-        {
-            page = this.Countpage
-        }
-        this.page = page;
-        axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/ListPostChill?page='+page+'&id='+this.id,{
-                headers: {
-                Accept: 'application/json'
+            if(page == "Trang trước")
+            {
+                page = this.currentPage -1;
             }
-        })
-        .then(data => {
-            this.Post = data.data;
-        })
-        .catch(error=>{
-            console.log(error.response.data);
-        })
+            if(page == "Trang sau")
+            {
+                page = this.currentPage +1;
+            }
+            axios.defaults.headers.post['Accept'] = 'application/json'
+            await axios.get('/api/ListPostChill?page='+page+'&id='+this.id,{
+                    headers: {
+                    Accept: 'application/json'
+                }
+            })
+            .then(data => {
+                this.Post = data.data;
+                this.currentPage = data.data.current_page;
+            })
+            .catch(error=>{
+                console.log(error.response.data);
+            })
+        }
       },
       async CheckPermissin()
       {

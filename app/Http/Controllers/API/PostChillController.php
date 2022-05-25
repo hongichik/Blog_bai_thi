@@ -107,11 +107,10 @@ class PostChillController extends Controller
                 'message' => 'Bạn không có quyền truy cập vào chức năng này' 
             ], 200);
         } 
-
-        $CountPostOnePage = 10;
-        $startpage = ($request->page -1)*$CountPostOnePage;
-        return DB::select('SELECT * FROM post_chillds WHERE
-         post_id = ? ORDER BY id DESC LIMIT ?, ?', [$request->id,$startpage,$CountPostOnePage]);
+        return DB::table('post_chillds')
+        ->where('post_id',$request->id)
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
     }
     public function NewPostChill(Request $request)
     {

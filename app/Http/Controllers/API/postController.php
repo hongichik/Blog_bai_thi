@@ -13,16 +13,13 @@ class postController extends Controller
 {
     public function ListAllPost(Request $request)
     {
-        $CountPostOnePage = 10;
-        $startpage = ($request->page -1)*$CountPostOnePage;
-
-        return DB::select('SELECT posts.*,users.name as `UserName`,categories.name as `CategoryName`,
-        (SELECT COUNT(id) FROM post_chillds WHERE post_id = posts.id) as `count` 
-        FROM `posts` 
-        JOIN `users` ON posts.user_id = users.id
-        JOIN categories ON posts.category_id = categories.id
-        ORDER BY posts.id DESC
-        LIMIT ?, ?', [$startpage,$CountPostOnePage]);
+        return DB::table('posts')
+        ->selectRaw(' posts.*,users.name as `UserName`,categories.name as `CategoryName`,
+        (SELECT COUNT(id) FROM post_chillds WHERE post_id = posts.id) as `count` ')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->join('categories', 'posts.category_id', '=', 'categories.id')
+        ->orderBy('posts.id', 'DESC')
+        ->paginate(10);
     }
 
 
@@ -34,17 +31,14 @@ class postController extends Controller
 
     public function ListPost(Request $request)
     {
-        $CountPostOnePage = 10;
-        $startpage = ($request->page -1)*$CountPostOnePage;
-
-        return DB::select('SELECT posts.*,users.name as `UserName`,categories.name as `CategoryName`,
-        (SELECT COUNT(id) FROM post_chillds WHERE post_id = posts.id) as `count` 
-        FROM `posts` 
-        JOIN `users` ON posts.user_id = users.id
-        JOIN categories ON posts.category_id = categories.id
-        WHERE users.id = ?
-        ORDER BY posts.id DESC
-        LIMIT ?, ?', [Auth::user()->id,$startpage,$CountPostOnePage]);
+        return DB::table('posts')
+        ->selectRaw(' posts.*,users.name as `UserName`,categories.name as `CategoryName`,
+        (SELECT COUNT(id) FROM post_chillds WHERE post_id = posts.id) as `count` ')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->join('categories', 'posts.category_id', '=', 'categories.id')
+        ->orderBy('posts.id', 'DESC')
+        ->where('users.id',Auth::user()->id)
+        ->paginate(10);
     }
 
 

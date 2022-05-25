@@ -1,16 +1,11 @@
 <template>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h5 class="card-header">Danh sách bài học của bạn</h5>
+            <h5 class="card-header">Danh sách bài học của bạn - trang : {{this.currentPage}}</h5>
             <div class="card-body">
-                <nav v-if="Countpage > 1" aria-label="Page navigation example" class="ml-3">
+                <nav v-if="Post.last_page > 1" aria-label="Page navigation example" class="ml-3">
                     <ul class="pagination">
-                        <li class="page-item page-link" @click="getPost(page -1)"> Quay lại</li>
-                        <li class="page-item page-link">1</li>
-                        <li class="page-item page-link">-></li>
-                        <li class="page-item page-link">{{Countpage}}</li>
-                        <li class="page-item page-link">Trang hiện tại {{page}}</li>
-                        <li class="page-item page-link" @click="getPost(page +1)">Trang tiếp theo</li>
+                        <li v-for="(data)  in Post.links" :key="data.value" class="page-item page-link" @click="getPost(data.label,data.url)">{{data.label}}</li>
                     </ul>
                 </nav>
                 <table class="table">
@@ -26,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data,index)  in Post" :key="data.value">
+                        <tr v-for="(data,index)  in Post.data" :key="data.value">
                             <th>{{index+1}}</th>
                             <td>{{data.name}} (viết bởi: {{data.UserName}})</td>
                             <td>{{data.summany}}</td>
@@ -37,7 +32,7 @@
                                 {{data.CategoryName}}
                             </td>
                             <td>
-                                <router-link style="height: 100%;width: 100%;cursor: pointer;" :to="'/ListPostChilld/'+data.id" >Số lượng : {{data.count}}</router-link>                                            
+                                <router-link style="height: 100%;width: 100%;cursor: pointer;" :to="'/ListPostChilld/'+data.id" >Số lượng : {{data.count}}</router-link>                                                                            
                             </td>
                             <td>
                                 <div class="form-group ml-3" style="text-align: center;">
@@ -56,15 +51,14 @@
 export default {
   data () {
     return {
-        Post:null,
+        Post:"",
         Countpage:1,
-        page: 1,
+        currentPage: 1,
     }
   },
   created () {
       this.CheckPermissin()
-      this.getPage()
-      this.getPost(1)
+      this.getPost(1,'aa')
   },
   methods: {
     async btnDeletePost(id)
@@ -76,8 +70,7 @@ export default {
             }
         })
         .then(data => {
-            this.getPage()
-            this.getPost(1)            
+            this.getPost(this.currentPage,'a')            
         })
         .catch(error=>{
             console.log(error);
@@ -89,7 +82,7 @@ export default {
       async getPage()
       {
         axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/CountPost',{
+        await axios.get('/api/CountAllPost',{
                 headers: {
                 Accept: 'application/json'
             }
@@ -101,29 +94,33 @@ export default {
             console.log(error);
         })
       },
-      async getPost(page)
+      async getPost(page,url)
       {
-        if(page == 0)
+        if(url != null)
         {
-            page = 1;
-        }
-        if(page >this.Countpage)
-        {
-            page = this.Countpage
-        }
-        this.page = page;
-        axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/ListPost?page='+page,{
-                headers: {
-                Accept: 'application/json'
+            if(page == "Trang trước")
+            {
+                page = this.currentPage -1;
             }
-        })
-        .then(data => {
-            this.Post = data.data;
-        })
-        .catch(error=>{
-            console.log(error);
-        })
+            if(page == "Trang sau")
+            {
+                page = this.currentPage +1;
+            }
+            axios.defaults.headers.post['Accept'] = 'application/json'
+            await axios.get('/api/ListPost?page='+page,{
+                    headers: {
+                    Accept: 'application/json'
+                }
+            })
+            .then(data => {
+                console.log(data.data)
+                this.Post = data.data;
+                this.currentPage = data.data.current_page;
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+        }
       },
       async CheckPermissin()
       {

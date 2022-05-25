@@ -100,7 +100,7 @@ export default {
         {
             const [file] = this.$refs.FileImg.files
             let fromData = new FormData();
-            fromData.append('name',this.namePosts);
+            fromData.append('name',this.namePosts.replace(/[&\/\\,()$~%.'":*?<>{}]/g, ''));
             fromData.append('image',file);
             fromData.append('summary',this.summary);
             fromData.append('content',this.ContentData);
@@ -115,6 +115,7 @@ export default {
                 this.$router.push({path: '/ListBlog'});
             })
             .catch(error=>{
+                this.errors.namePosts = "Tên bài viết đã bị trùng"
                 console.log(error.response.data);
             })
         }

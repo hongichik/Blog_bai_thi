@@ -102,14 +102,12 @@ class BlogController extends Controller
                 'message' => 'Bạn không có quyền truy cập vào chức năng này' 
             ], 200);
         } 
-        $CountOnePage = 10;
-        $startpage = ($request->page -1)*$CountOnePage;
 
-        return DB::select('SELECT blogs.*,users.name as `UserName`
-        FROM `blogs` 
-        JOIN `users` ON blogs.user_id = users.id
-        ORDER BY blogs.id DESC
-        LIMIT ?, ?', [$startpage,$CountOnePage]);
+        return DB::table('blogs')
+        ->selectRaw('blogs.*,users.name as `UserName`')
+        ->join('users', 'blogs.user_id', '=', 'users.id')
+        ->orderBy('blogs.id', 'DESC')
+        ->paginate(10);
     }
     public function CountAllBlog()
     {
@@ -121,12 +119,12 @@ class BlogController extends Controller
         $CountOnePage = 10;
         $startpage = ($request->page -1)*$CountOnePage;
 
-        return DB::select('SELECT blogs.*,users.name as `UserName`
-        FROM `blogs` 
-        JOIN `users` ON blogs.user_id = users.id
-        WHERE users.id = ?
-        ORDER BY blogs.id DESC
-        LIMIT ?, ?', [Auth::user()->id,$startpage,$CountOnePage]);
+        return DB::table('blogs')
+        ->selectRaw('blogs.*,users.name as `UserName`')
+        ->join('users', 'blogs.user_id', '=', 'users.id')
+        ->where('users.id',Auth::user()->id)
+        ->orderBy('blogs.id', 'DESC')
+        ->paginate(10);
     }
     public function CountBlog()
     {

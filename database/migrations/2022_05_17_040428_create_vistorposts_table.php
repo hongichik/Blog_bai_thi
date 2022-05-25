@@ -19,7 +19,7 @@ class CreateVistorpostsTable extends Migration
             
             $table->integer('post_id')->unsigned();
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-
+            $table->integer('count');
             $table->timestamps();
         });
     }

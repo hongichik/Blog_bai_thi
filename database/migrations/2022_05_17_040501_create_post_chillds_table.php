@@ -15,7 +15,7 @@ class CreatePostChilldsTable extends Migration
     {
         Schema::create('post_chillds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('summany');
             $table->string('image');
             $table->string('content');

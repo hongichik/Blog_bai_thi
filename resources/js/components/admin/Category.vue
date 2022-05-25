@@ -125,7 +125,7 @@ export default {
         
         let fromData = new FormData();
         fromData.append('id',$id);
-        fromData.append('name',$name);
+        fromData.append('name',$name.replace(/[&\/\\,()$~%.'":*?<>{}]/g, ''));
         axios.defaults.headers.post['Accept'] = 'application/json'
         await axios.post('/api/UpdateCategory',fromData,{
                 headers: {
@@ -193,7 +193,7 @@ export default {
             return;
         }
         let fromData = new FormData();
-        fromData.append('name',this.CategoryName);
+        fromData.append('name',this.CategoryName.replace(/[&\/\\,()$~%.'":*?<>{}]/g, ''));
         if(this.parentName != 'danh mục cha')
             fromData.append('father_id',this.parentId);
 
@@ -207,7 +207,7 @@ export default {
             this.refresh();
         })
         .catch(error=>{
-            console.log("lỗi");
+            this.error = "Danh mục đã bị trùng tên"
             this.showError(error);
         })
       },

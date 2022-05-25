@@ -13,11 +13,11 @@ class HomeController extends Controller
     public function index()
     {
         $PostNew = Post::orderBy("id",'DESC')->first();
-        $PostNewChill = postChilld::where('post_id',$PostNew->id)->offset(0)->limit(2)->get();
+        $PostNewChill = postChilld::where('post_id',$PostNew->id)->offset(0)->limit(1)->get();
         $Yeschill = 0;
-        if($PostNewChill->count() == 0)
+        if($PostNewChill->count() < 2)
         {
-            $PostNewChill = Post::orderBy("id",'DESC')->where('id', '<', $PostNew->id)->offset(0)->limit(3)->get();
+            $PostNewChill = Post::orderBy("id",'DESC')->where('id', '<', $PostNew->id)->offset(0)->limit(2)->get();
             $Yeschill = 1;
         }
         return view('user.home',[

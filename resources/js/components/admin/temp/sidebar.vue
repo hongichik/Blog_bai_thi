@@ -72,25 +72,26 @@
                             </li>     
                             <li class="nav-item" v-if="Permission.includes('Manage-Account')">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">
-                                    Quản lý thông tin web
+                                    Quản lý chung
                                 </a>
                                 <div id="submenu-4" class="collapse submenu" >
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <router-link to=/About class=nav-link>Trang giới thiệu</router-link>                                            
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <router-link to=/newPermission class=nav-link>Thông tin chung</router-link>
-                                        </li>
-
+                                        </li> -->
+                                        <li class="nav-item" v-if="Permission.includes('Manage-contact')">
+                                            <router-link to=/Contact class=nav-link>Quản lý liên hệ</router-link>
+                                        </li>  
                                     </ul>
                                 </div>
-                            </li>                              <li class="nav-item" v-if="Permission.includes('Manage-report')">
-                                <router-link to=/Home class=nav-link>Thống kê truy cập</router-link>
+                            </li>                              
+                            <li class="nav-item" v-if="Permission.includes('Manage-report')">
+                                <router-link to=/ReportVisitor class=nav-link>Thống kê truy cập</router-link>
                             </li>                                    
-                            <li class="nav-item" v-if="Permission.includes('Manage-contact')">
-                                <router-link to=/Home class=nav-link>Quản lý liên hệ</router-link>
-                            </li>  
+  
                             <li class="nav-item pb-5">
                                 <a class="nav-link" href="/" target="_blank">Đến trang người dùng</a>
                             </li>

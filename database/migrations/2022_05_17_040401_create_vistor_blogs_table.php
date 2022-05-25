@@ -19,7 +19,7 @@ class CreateVistorBlogsTable extends Migration
 
             $table->integer('blog_id')->unsigned();
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
-
+            $table->integer('count');
             $table->timestamps();
         });
     }

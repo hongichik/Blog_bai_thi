@@ -43,7 +43,21 @@ import ListBlog from './components/admin/Blog/ListBlog.vue'
 import ListAllBlog from './components/admin/Blog/ListAllBlog.vue'
 import UpdateBlog from './components/admin/Blog/UpdateBlog.vue'
 
+import Contact from './components/admin/Contact.vue'
+
+import ReportVisitor from './components/admin/ReportVisitor.vue'
+
 export const routes = [
+    {
+		path: '/ReportVisitor',
+        component: ReportVisitor,
+        name: 'ReportVisitor',
+    },
+    {
+		path: '/Contact',
+        component: Contact,
+        name: 'Contact',
+    },
     {
 		path: '/About',
         component: About,

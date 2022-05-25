@@ -23,7 +23,6 @@ class SaveIpUser
             $visitorWeb->ip = $request->getClientIp();
             $visitorWeb->save();
         }
-        $request->getClientIp();
         return $next($request);
     }
 

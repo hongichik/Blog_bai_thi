@@ -1,21 +1,16 @@
 <template>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h5 class="card-header">Danh sách bài blog của bạn</h5>
+            <h5 class="card-header">Danh sách bài blog của bạn - trang : {{this.currentPage}}</h5>
                 <div class="card-body">
                 <div style="display: flex;justify-content: space-between;">
                 <div class="form-group ">
                 </div>
-                 <nav v-if="Countpage > 1" aria-label="Page navigation example" class="ml-3">
+                <nav v-if="Post.last_page > 1" aria-label="Page navigation example" class="ml-3">
                     <ul class="pagination">
-                        <li class="page-item page-link" @click="getBlog(page -1)"> Quay lại</li>
-                        <li class="page-item page-link">1</li>
-                        <li class="page-item page-link">-></li>
-                        <li class="page-item page-link">{{Countpage}}</li>
-                        <li class="page-item page-link">Trang hiện tại {{page}}</li>
-                        <li class="page-item page-link" @click="getBlog(page +1)">Trang tiếp theo</li>
+                        <li v-for="(data)  in Post.links" :key="data.value" class="page-item page-link" @click="getBlog(data.label,data.url)">{{data.label}}</li>
                     </ul>
-                </nav>               
+                </nav>              
                 </div>
                 <table class="table">
                     <thead>
@@ -28,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data,index)  in Post" :key="data.value">
+                        <tr v-for="(data,index)  in Post.data" :key="data.value">
                             <th>{{index+1}}</th>
                             <td>{{data.name}} (tác giả:{{ data.UserName }}) </td>
                             <td>{{data.summany}}</td>
@@ -52,15 +47,15 @@
 export default {
   data () {
     return {
-        Post:null,
+        Post:"",
         Countpage:1,
         page: 1,
+        currentPage:1,
     }
   },
   created () {
       this.CheckPermissin()
-      this.getPage()
-      this.getBlog(1)
+      this.getBlog(1,"aa")
   },
   methods: {
     async btnDeleteBlog(id)
@@ -72,8 +67,7 @@ export default {
             }
         })
         .then(data => {
-            this.getPage()
-            this.getBlog(this.page)    
+            this.getBlog(this.currentPage,'aaa')    
         })
         .catch(error=>{
             console.log(error);
@@ -82,44 +76,33 @@ export default {
       btnUpdateBlog(id){
         this.$router.push({path: '/UpdateBlog/'+id});
       },
-      async getPage()
+      async getBlog(page,url)
       {
-        axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/CountBlog',{
-                headers: {
-                Accept: 'application/json'
-            }
-        })
-        .then(data => {
-            this.Countpage = data.data;
-        })
-        .catch(error=>{
-            console.log(error.response.data);
-        })
-      },
-      async getBlog(page)
-      {
-        if(page == 0)
+        if(url != null)
         {
-            page = 1;
-        }
-        if(page >this.Countpage)
-        {
-            page = this.Countpage
-        }
-        this.page = page;
-        axios.defaults.headers.post['Accept'] = 'application/json'
-        await axios.get('/api/ListBlog?page='+page,{
-                headers: {
-                Accept: 'application/json'
+            if(page == "Trang trước")
+            {
+                page = this.currentPage -1;
             }
-        })
-        .then(data => {
-            this.Post = data.data;
-        })
-        .catch(error=>{
-            console.log(error.response.data);
-        })
+            if(page == "Trang sau")
+            {
+                page = this.currentPage +1;
+            }
+            axios.defaults.headers.post['Accept'] = 'application/json'
+            await axios.get('/api/ListBlog?page='+page,{
+                    headers: {
+                    Accept: 'application/json'
+                }
+            })
+            .then(data => {
+                console.log(data.data)
+                this.Post = data.data;
+                this.currentPage = data.data.current_page;
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+        }
       },
       async CheckPermissin()
       {

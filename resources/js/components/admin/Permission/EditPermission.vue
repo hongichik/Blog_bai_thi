@@ -25,11 +25,27 @@
                     </div>
                     <label for="" style="color: red;">{{error.All}}</label>
                     <div class="form-group row">
+                        <label class="col-form-label ml-3">Cấp lại mật khẩu</label>
+                        <div class="col-12 col-sm-8 col-lg-6 pt-1">
+                            <div class="switch-button switch-button-success">
+                                <input type="checkbox" :checked="newPass" v-model="newPass" name="switch16" id="switch16"><span>
+                            <label for="switch16"></label></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="newPass">
+                        <div class="form-group">
+                            <label  class="col-form-label">Mật khẩu mới</label>
+                            <input  v-model="Pass" autocomplete="off"  type="text" class="form-control">
+                        </div> 
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-form-label ml-3">Chỉnh sửa quyền</label>
                         <div class="col-12 col-sm-8 col-lg-6 pt-1">
                             <div class="switch-button switch-button-success">
-                                <input type="checkbox" :checked="check" v-model="check" name="switch16" id="switch16"><span>
-                            <label for="switch16"></label></span>
+                                <input type="checkbox" :checked="check" v-model="check" name="switch" id="switch"><span>
+                            <label for="switch"></label></span>
                             </div>
                         </div>
                     </div>
@@ -55,6 +71,7 @@
 export default ({
   data () {
     return {
+        newPass:false,
         Fullname: "",
         Gmail: "",
         Pass: "demo",
@@ -178,14 +195,9 @@ export default ({
             this.error.Gmail = "Gmail không đúng định giạng"
             return false;
         }
-        if(this.Fullname == "" || this.Pass == "" || this.PassCheck == "" ||this.Address == "" || this.birthday == "")
+        if(this.Fullname == "" || this.Pass == "" ||this.Address == "" || this.birthday == "")
         {
             this.error.All = "Không được phép bỏ trống thông tin"
-            return false;
-        }
-        if(this.Pass != this.PassCheck)
-        {
-            this.error.All = "Mật khẩu nhập lại bị sai"
             return false;
         }
         this.error.Gmail = ""

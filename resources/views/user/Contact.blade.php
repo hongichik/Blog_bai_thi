@@ -27,13 +27,13 @@
                                     <div class="media contact-info">
                                         <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                                         <div class="media-body">
-                                            <h3>{{ $numberFooter }}</h3>
+                                            <h3>{{env('numberHeader')}}</h3>
                                         </div>
                                     </div>
                                     <div class="media contact-info">
                                         <span class="contact-info__icon"><i class="ti-email"></i></span>
                                         <div class="media-body">
-                                            <h3>Gmail: {{ $Gmail }}</h3>
+                                            <h3>{{env('GmailFooter')}}</h3>
                                         </div>
                                     </div>
                                 </div>

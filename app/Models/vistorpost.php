@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class vistorpost extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'ip',
+        'count',
+        'post_id'
+    ];
 }

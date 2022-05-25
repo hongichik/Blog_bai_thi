@@ -9,15 +9,29 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\PostChillController;
 use App\Http\Controllers\API\BlogController;
-use App\Http\Controllers\API\visitorController;
 use App\Http\Controllers\API\AboutController;
+use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\VisitorControllor;
 
 
 Route::middleware('auth')->group(function (){
+    Route::get('/ListUser', [VisitorControllor::class,'ListUser']);
+    Route::get('/ListVisitor', [VisitorControllor::class,'ListVisitor']);
+
+    Route::post('/Comment', [CommentController::class,'index']);
+    Route::get('/ListComment', [CommentController::class,'ListComment']);
+    Route::get('/ListALLComment', [CommentController::class,'ListALLComment']);
+    Route::get('/UpdateComment', [CommentController::class,'UpdateComment']);
+    Route::get('/DeleteComment', [CommentController::class,'DeleteComment']);
+
+
+    Route::post('/CeaterContact', [ContactController::class,'CeaterContact']);
+    Route::get('/GetContact', [ContactController::class,'GetContact']);
+    Route::get('/DeleteContact', [ContactController::class,'DeleteContact']);
+
     Route::post('/UpdateAbout', [AboutController::class,'UpdateAbout']);
     Route::get('/getAbout', [AboutController::class,'getAbout']);
-
-    Route::get('/visitor', [visitorController::class,'visitor']);
 
     Route::get('/getBlog', [BlogController::class,'getBlog']);
     Route::post('/UpdateBlog', [BlogController::class,'UpdateBlog']); 

@@ -15,7 +15,7 @@
                                     <div class="trend-top-img">
                                         <img style=" aspect-ratio:  3 / 2; object-fit: cover;" src="/api/ShowImg/{{ $NewPost['image'] }}" alt="">
                                         <div class="trend-top-cap">
-                                            <h2><a href="/Post?name={{ $NewPost['name'] }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ $NewPost['name'] }}</a></h2>
+                                            <h2><a href="/Post/{{ $NewPost['name'] }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ $NewPost['name'] }}</a></h2>
                                             <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">Viết lúc : {{ $NewPost['created_at'] }}</p>
                                         </div>
                                     </div>
@@ -27,15 +27,15 @@
                     <div class="col-lg-4">
                         @foreach($PostNewChill as $Child)
                             <div class="row">
-                                <div class="col-lg-12 col-md-6 col-sm-6" style="max-width: 80%;">
-                                    <div class="trending-top mb-30">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="trending-top mb-15">
                                         <div class="trend-top-img">
-                                            <img style=" aspect-ratio:  2 / 1; object-fit: cover;" src="/api/ShowImg/{{ $Child['image'] }}" alt="">
+                                            <img style=" aspect-ratio:  6 / 4; object-fit: cover;" src="/api/ShowImg/{{ $Child['image'] }}" alt="">
                                             <div class="trend-top-cap trend-top-cap2">
                                                 @if ($Yeschill == 0)
-                                                    <h2><a href="/PostChill?name={{ $Child['name'] }}">{{ $Child['name'] }}</a></h2>
+                                                    <h2><a href="/PostChill/{{ $Child['name'] }}">{{ $Child['name'] }}</a></h2>
                                                 @else
-                                                    <h2><a href="/Post?name={{ $Child['name'] }}">{{ $Child['name'] }}</a></h2>
+                                                    <h2><a href="/Post/{{ $Child['name'] }}">{{ $Child['name'] }}</a></h2>
                                                 @endif
                                                 <p>Viết lúc: {{ $Child['created_at'] }}</p>
                                             </div>
@@ -63,21 +63,19 @@
                                 <h3>Bài viết mới nhất</h3>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-md-9">
-                            <div class="properties__button">
-                                <!--Nav Button  -->                                            
-                                <nav>                                                 
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Lifestyle</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Travel</a>
-                                        <a class="nav-item nav-link" id="nav-last-tab" data-toggle="tab" href="#nav-last" role="tab" aria-controls="nav-contact" aria-selected="false">Sports</a>
-                                        <a class="nav-item nav-link" id="nav-Sports" data-toggle="tab" href="#nav-nav-Sport" role="tab" aria-controls="nav-contact" aria-selected="false">Technology</a>
-                                    </div>
-                                </nav>
-                                <!--End Nav Button  -->
-                            </div>
-                        </div>
                     </div>
+                    <?php 
+                        use App\Models\Post;
+                        use App\Models\postChilld;
+                        $Post = Post::all()->random(1);
+                        $postChillds = postChilld::where('post_id',$Post[0]->id)->offset(0)->limit(5)->get();
+                        if($postChillds->count() <5)
+                        {
+                            $postChillds = Post::all()->random(5);
+                            $notChill = true;
+                        }
+
+                    ?>
                     <!-- Tab content -->
                     <div class="row">
                         <div class="col-12">
@@ -90,12 +88,15 @@
                                         <div class="col-xl-6 col-lg-12">
                                             <div class="whats-news-single mb-40 mb-40">
                                                 <div class="whates-img">
-                                                    <img src="assets/img/gallery/whats_news_details1.png" alt="">
+                                                    <img style="aspect-ratio: 3 / 2;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $Post[0]['image'] }}" alt="">
                                                 </div>
                                                 <div class="whates-caption">
-                                                    <h4><a href="latest_news.html">Secretart for Economic Air plane that looks like</a></h4>
-                                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
+                                                    <h4><a href="/Post/{{ $Post[0]['name'] }}">{{ $Post[0]['name'] }}</a></h4>
+                                                    <span>Viết lúc : {{ $Post[0]['created_at'] }}</span>
+                                                    <p style="overflow: hidden;
+                                                    display: -webkit-box;
+                                                    -webkit-line-clamp: 2;
+                                                    -webkit-box-orient: vertical;">{{ $Post[0]['summany'] }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,344 +105,22 @@
                                             <div class="row">
                                                 <!-- single -->
                                                 <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img1.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img3.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorg">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorr">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card two -->
-                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <div class="row">
-                                        <!-- Left Details Caption -->
-                                        <div class="col-xl-6">
-                                            <div class="whats-news-single mb-40">
-                                                <div class="whates-img">
-                                                    <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                </div>
-                                                <div class="whates-caption">
-                                                    <h4><a href="#">Secretart for Economic Air
-                                                        plane that looks like</a></h4>
-                                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Right single caption -->
-                                        <div class="col-xl-6 col-lg-12">
-                                            <div class="row">
-                                                <!-- single -->
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img1.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img3.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorg">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorr">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card three -->
-                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                    <div class="row">
-                                        <!-- Left Details Caption -->
-                                        <div class="col-xl-6">
-                                            <div class="whats-news-single mb-40">
-                                                <div class="whates-img">
-                                                    <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                </div>
-                                                <div class="whates-caption">
-                                                    <h4><a href="#">Secretart for Economic Air
-                                                        plane that looks like</a></h4>
-                                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Right single caption -->
-                                        <div class="col-xl-6 col-lg-12">
-                                            <div class="row">
-                                                <!-- single -->
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img1.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img3.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorg">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorr">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card fure -->
-                                <div class="tab-pane fade" id="nav-last" role="tabpanel" aria-labelledby="nav-last-tab">
-                                    <div class="row">
-                                        <!-- Left Details Caption -->
-                                        <div class="col-xl-6">
-                                            <div class="whats-news-single mb-40">
-                                                <div class="whates-img">
-                                                    <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                </div>
-                                                <div class="whates-caption">
-                                                    <h4><a href="#">Secretart for Economic Air
-                                                        plane that looks like</a></h4>
-                                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Right single caption -->
-                                        <div class="col-xl-6 col-lg-12">
-                                            <div class="row">
-                                                <!-- single -->
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img1.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img3.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorg">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorr">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card Five -->
-                                <div class="tab-pane fade" id="nav-nav-Sport" role="tabpanel" aria-labelledby="nav-Sports">
-                                    <div class="row">
-                                        <!-- Left Details Caption -->
-                                        <div class="col-xl-6">
-                                            <div class="whats-news-single mb-40">
-                                                <div class="whates-img">
-                                                    <img src="assets/img/gallery/whats_news_details1.png" alt="">
-                                                </div>
-                                                <div class="whates-caption">
-                                                    <h4><a href="#">Secretart for Economic Air
-                                                        plane that looks like</a></h4>
-                                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Right single caption -->
-                                        <div class="col-xl-6 col-lg-12">
-                                            <div class="row">
-                                                <!-- single -->
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img1.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img2.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorb">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img3.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorg">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                                    <div class="whats-right-single mb-20">
-                                                        <div class="whats-right-img">
-                                                            <img src="assets/img/gallery/whats_right_img4.png" alt="">
-                                                        </div>
-                                                        <div class="whats-right-cap">
-                                                            <span class="colorr">FASHION</span>
-                                                            <h4><a href="latest_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                                            <p>Jun 19, 2020</p> 
-                                                        </div>
-                                                    </div>
+                                                    @foreach ($postChillds as $postChilld)
+                                                        <div class="whats-right-single mb-20">
+                                                            <div class="whats-right-img col-4">
+                                                                <img style="aspect-ratio: 3 / 2;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $postChilld['image'] }}" alt="">
+                                                            </div>
+                                                            <div class="whats-right-cap">
+                                                                @if (isset($notChill))
+                                                                    <h4><a href="/Post/{{ $postChilld['name'] }}">{{ $postChilld['name'] }}</a></h4>
+                                                                @else
+                                                                    <h4><a href="/PostChill/{{ $Post[0]['name'] }}/{{ $postChilld['name'] }}">{{ $postChilld['name'] }}</a></h4>
+                                                                @endif
+                                                                <p>Viết lúc : {{ $postChilld['created_at'] }}</p> 
+                                                            </div>
+                                                        </div>                                                       
+                                                    @endforeach
+
                                                 </div>
                                             </div>
                                         </div>
@@ -464,37 +143,35 @@
                         <div class="small-tittle mb-20">
                             <h4>Mẹo vặt</h4>
                         </div>
+                        <?php 
+                            use App\Models\blog;
+                            $blogDetails = blog::all()->random(1);
+                            $blogs = blog::all()->random(3);
+                        ?>
                         <!-- Details -->
                         <div class="most-recent mb-40">
                             <div class="most-recent-img">
-                                <img src="assets/img/gallery/most_recent.png" alt="">
+                                <img style="aspect-ratio: 2 / 1;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $blogDetails[0]['image'] }}" alt="">
                                 <div class="most-recent-cap">
-                                    <h4><a href="latest_news.html">What to Wear: 9+ Cute Work <br>
-                                        Outfits to Wear This.</a></h4>
-                                    <p>Jhon  |  2 hours ago</p>
+                                    <h4><a href="/Blog/{{ $blogDetails[0]['name'] }}">{{ $blogDetails[0]['name'] }}</a></h4>
+                                    <p>Viết lúc : {{ $blogDetails[0]['created_at'] }}</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Single -->
-                        <div class="most-recent-single">
-                            <div class="most-recent-images">
-                                <img src="assets/img/gallery/most_recent1.png" alt="">
-                            </div>
-                            <div class="most-recent-capt">
-                                <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                                <p>Jhon  |  2 hours ago</p>
-                            </div>
-                        </div>                       
+                        @foreach ($blogs as $blog)
+                            <div class="most-recent-single">
+                                <div class="most-recent-images col-4">
+                                    <img style="aspect-ratio: 2 / 1;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $blog['image'] }}" alt="">
+                                </div>
+                                <div class="most-recent-capt">
+                                    <h4><a href="/Blog/{{ $blog['name'] }}">{{ $blog['name'] }}</a></h4>
+                                    <p>Viết lúc : {{ $blog['created_at'] }}</p>
+                                </div>
+                            </div>                              
+                        @endforeach
+                    
                         <!-- Single -->
-                        <div class="most-recent-single">
-                            <div class="most-recent-images">
-                                <img src="assets/img/gallery/most_recent2.png" alt="">
-                            </div>
-                            <div class="most-recent-capt">
-                                <h4><a href="latest_news.html">Most Beautiful Things to Do in Sidney with Your BF</a></h4>
-                                <p>Jhon  |  3 hours ago</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -520,50 +197,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Slider -->
+                            <?php 
+                                $HotPosts = Post::all()->random(10);
+                                $HotPostTwos = Post::all()->random(10);
+        
+                            ?>                  
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="weekly2-news-active d-flex">
-                                        <!-- Single -->
+                                        @foreach ($HotPosts as $HotPost)
                                         <div class="weekly2-single">
                                             <div class="weekly2-img">
-                                                <img src="assets/img/gallery/weeklyNews1.png" alt="">
+                                                <img style="aspect-ratio: 2 / 1;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $HotPost['image'] }}" alt="">
                                             </div>
                                             <div class="weekly2-caption">
-                                                <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                <p>Jhon  |  2 hours ago</p>
+                                                <h4><a href="/Post/{{ $HotPost['name'] }}">{{ $HotPost['name'] }}</a></h4>
+                                                <p>Viết lúc : {{ $HotPost['created_at'] }}</p>
                                             </div>
                                         </div>  
-                                        <!-- Single -->
-                                        <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="assets/img/gallery/weeklyNews2.png" alt="">
-                                            </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                <p>Jhon  |  2 hours ago</p>
-                                            </div>
-                                        </div> 
-                                        <!-- Single -->
-                                        <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="assets/img/gallery/weeklyNews3.png" alt="">
-                                            </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                <p>Jhon  |  2 hours ago</p>
-                                            </div>
-                                        </div> 
-                                        <!-- Single -->
-                                        <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="assets/img/gallery/weeklyNews2.png" alt="">
-                                            </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                <p>Jhon  |  2 hours ago</p>
-                                            </div>
-                                        </div> 
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -587,51 +240,17 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="weekly3-news-active dot-style d-flex">
+                                        @foreach ($HotPostTwos as $HotPostTwo)
                                         <div class="weekly3-single">
                                             <div class="weekly3-img">
-                                                <img src="assets/img/gallery/weekly2News1.png" alt="">
+                                                <img style="aspect-ratio: 2 / 1;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $HotPostTwo['image'] }}" alt="">
                                             </div>
                                             <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a></h4>
-                                                <p>19 Jan 2020</p>
+                                                <h4><a href="/Post/{{ $HotPostTwo['name'] }}">{{ $HotPostTwo['name'] }}</a></h4>
+                                                <p>Viết lúc : {{ $HotPostTwo['created_at'] }}</p>
                                             </div>
-                                        </div> 
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="assets/img/gallery/weekly2News2.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div> 
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="assets/img/gallery/weekly2News3.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="assets/img/gallery/weekly2News4.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div> 
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="assets/img/gallery/weekly2News2.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div> 
+                                        </div>  
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
