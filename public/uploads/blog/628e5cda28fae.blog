@@ -1,0 +1,28 @@
+<h1>Bài 4: Chương trình Java đầu tiên Hello World</h1><p class="ql-align-justify">Chương này, chúng ta sẽ học cách viết một chương trình Java đơn giản. Trước khi viết chương trình Hello World, bạn nên cài đặt trước JDK.</p><p class="ql-align-justify">Để tạo một chương trình Java đơn giản, bạn cần tạo một lớp chứa phương thức main. Để thực thi bất cứ chương trình Java nào, bạn cần:</p><p class="ql-align-justify">Platform:&nbsp;Bất cứ môi trường phần cứng hoặc phần mền nào mà trong đó một chương trình chạy, thì được biết đến như là một Platform. Với môi trường runtime riêng cho mình là JRE và API, Java được gọi là Platform.</p><h2>Tạo ví dụ Hello World</h2><p class="ql-align-justify">Bạn theo dõi ví dụ để viết chương trình Hello World:</p><pre class="ql-syntax" spellcheck="false">class Simple{  
+  public static void main(String args[]){  
+   System.out.println("Hello World");  
+    }  
+}  
+</pre><p class="ql-align-justify">Sau đó, bạn lưu file dưới tên&nbsp;Simple.java.</p><ul><li class="ql-align-justify">Để biên dịch, bạn gõ:&nbsp;javac Simple.java</li><li class="ql-align-justify">Để thực thi, bạn gõ:&nbsp;java Simple</li></ul><h2>Phân tích chi tiết chương trình Java đầu tiên</h2><p class="ql-align-justify">Dưới đây, chúng tôi sẽ giúp bạn hiểu ý nghĩa của class, public, static, void, main, String[], System.out.println().</p><ul><li class="ql-align-justify">Từ khóa&nbsp;class&nbsp;được sử dụng để khai báo một lớp trong Java.</li><li class="ql-align-justify">Từ khóa&nbsp;public&nbsp;là một Access Modifier mà biểu diễn tính nhìn thấy, nghĩa rằng nó là nhìn nhất với tất cả.</li><li class="ql-align-justify">static&nbsp;là một từ khóa, mà nếu chúng ta khai báo bất cứ phương thức nào là static thì nó còn được gọi là phương thức tĩnh hoặc phương thức static. Lợi thế chủ yếu của phương thức static là không cần thiết tạo đối tượng để triệu hồi phương thức static. Phương thức main được thực thi bởi JVM, vì thế bạn không cần thiết tạo một đối tượng để gọi phương thức main. Việc này giúp tiết kiệm bộ nhớ.</li><li class="ql-align-justify">void&nbsp;là kiểu trả về của phương thức, nghĩa là phương thức không trả về bất cứ giá trị nào.</li><li class="ql-align-justify">main&nbsp;tượng trưng cho khởi động chương trình.</li><li class="ql-align-justify">String[] args&nbsp;được sử dụng cho tham số dòng lệnh. Bạn sẽ tìm hiểu về chúng sau.</li><li class="ql-align-justify">System.out.println()&nbsp;được sử dụng như là lệnh in. Chương sau, bạn sẽ thấy cách làm việc nội tại của lệnh System.out.println này.</li></ul><p class="ql-align-justify">Để viết một chương trình đơn giản, bạn mở notepad bởi&nbsp;Start menu&nbsp;-&gt;&nbsp;All Programs&nbsp;-&gt;&nbsp;Accessories&nbsp;-&gt;&nbsp;notepad&nbsp;và viết chương trình đơn giản Hello World trên.</p><p class="ql-align-justify">Viết và lưu chương trình dưới dạng Simple.java. Để biên dịch và chạy chương trình này, bạn cần mở dòng nhắc lệnh command prompt bởi&nbsp;Start menu&nbsp;-&gt;&nbsp;All Programs&nbsp;-&gt;&nbsp;Accessories&nbsp;-&gt;&nbsp;command prompt.</p><h2>Bạn có bao nhiêu cách để viết một chương trình Java</h2><p class="ql-align-justify">Có nhiều cách để viết một chương trình Java. Các sửa đổi có thể được thực hiện trong chương trình Java như sau:</p><p class="ql-align-justify">Thứ nhất bằng việc thay đổi dãy sắp xếp của Modifier, thì nguyên mẫu phương thức không bị thay đổi. Bạn theo dõi phần code đơn giản của phương thức main:</p><pre class="ql-syntax" spellcheck="false">static public void main(String args[])  
+</pre><p class="ql-align-justify">Thứ hai, ký hiệu chỉ số dưới [] trong Mảng Java có thể được sử dụng sau kiểu, ở trước biến hoặc đằng sau biến. Bạn theo dõi các code khác nhau để viết phương thức main:</p><pre class="ql-syntax" spellcheck="false">public static void main(String[] args)  
+public static void main(String []args)  
+public static void main(String args[])   
+</pre><p class="ql-align-justify">Thứ ba, bạn có thể cung cấp sự hỗ trợ var-args tới phương thức main bằng cách truyền 3 dấu chấm. Bạn theo dõi code đơn giản sau sử dụng var-args trong phương thức main. Chúng ta sẽ học về var-args trong chương Các đặc điểm mới trong Java.</p><pre class="ql-syntax" spellcheck="false">public static void main(String... args)     
+</pre><p class="ql-align-justify">Thứ tư, việc có hay không dấu chấm phảy ở phần cuối của lớp trong Java là tùy ý. Bạn theo dõi code sau:</p><pre class="ql-syntax" spellcheck="false">class A{  
+static public void main(String... args){  
+System.out.println("Hello World");  
+}  
+};     
+</pre><p class="ql-align-justify">Một số phương thức main hợp lệ trong Java:</p><pre class="ql-syntax" spellcheck="false">public static void main(String[] args)  
+public static void main(String []args)  
+public static void main(String args[])  
+public static void main(String... args)  
+static public void main(String[] args)  
+public static final void main(String[] args)  
+final public static void main(String[] args)  
+final strictfp public static void main(String[] args)     
+</pre><p class="ql-align-justify">Một số phương thức main không hợp lệ trong Java:</p><pre class="ql-syntax" spellcheck="false">public void main(String[] args)  
+static void main(String[] args)  
+public void static main(String[] args)  
+abstract public static void main(String[] args)    
+</pre><h4><br></h4><p><br></p>

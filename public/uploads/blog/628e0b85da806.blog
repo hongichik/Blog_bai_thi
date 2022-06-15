@@ -1,0 +1,36 @@
+<h1>Bài 2: Kiểm tra số nguyên trong C++</h1><h2><strong>Số nguyên số thực trong C++ là gì?</strong></h2><p>Trong ngôn ngữ C++, khái niệm số nguyên và số thực cũng giống với khái niệm mà chúng ta hay dùng.</p><p>Số nguyên bao gồm các số tự nhiên (1,2,3…), số âm (-1,-2,-3…) và số 0.</p><p>Những con số thông thường mà chúng ta thường sử dụng được gọi là số nguyên.</p><p>Số thực là một số nguyên cộng với một giá trị thập phân. Ví dụ, các số như 1.0, 5.2, -9.687, 3.14159,… chẳng hạn. Số thực cũng bao gồm số nguyên trong nó.</p><p>Tóm lại, các số bao gồm cả phần thập phân được gọi là số thực.</p><p>Số nguyên trong C++ có thể biểu diễn bởi giá trị chính xác của nó, trong khi số thực trong C++ lại được biểu diễn dưới dạng dấu phẩy động, điều đó có nghĩa là số thực không thể biểu diễn bởi giá trị chính xác, mà chúng ta có thể làm tròn lên hoặc làm tròn xuống số chữ cái sau phần thập phân để biểu diễn nó với các giá trị khác nhau.</p><h2><strong>Kiểm tra số nguyên trong C++</strong></h2><p>Số nguyên trong C++ có khả năng biểu diễn bởi giá trị chính xác của nó, trong khi số thực thì có thể làm tròn lên hoặc làm tròn xuống thành các giá trị khác nhau.</p><p>Bằng cách sử dụng tính chất này, chúng ta có thể so sánh hai giá trị&nbsp;<strong>làm tròn lên</strong>&nbsp;và&nbsp;<strong>làm tròn xuống</strong>&nbsp;của số đã cho, và nếu hai giá trị này giống nhau thì số đã cho chính là một số nguyên.</p><p>Chúng ta cần sử dụng tới hai hàm trong header file&nbsp;là hàm eil() để làm tròn lên, và hàm floor để làm tròn xuống giá trị một số trong C++.</p><p>Và chúng ta có thể tạo&nbsp;<strong>hàm kiểm tra số nguyên trong C++</strong>&nbsp;như sau:</p><p><br></p><pre class="ql-syntax" spellcheck="false">#include &lt;cmath&gt;
+
+int check_real_integer_number(float n){
+    //flag = 1 =&gt; số nguyên
+    //flag = 0 =&gt; số thực
+
+    int flag = 1;
+    if (ceil(n) != floor(n)) flag = 0;
+    return flag;
+}
+</pre><p>Chúng ta có thể gọi hàm này và sử dụng trong chương trình&nbsp;<strong>nhập n kiểm tra n có phải số nguyên không</strong>&nbsp;trong C++ như sau:</p><p><br></p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+int check_real_integer_number(float n){
+    //flag = 1 =&gt; là số nguyên
+    //flag = 0 =&gt; không phải là số nguyên
+
+    int flag = 1;
+    if (ceil(n) != floor(n)) flag = 0;
+    return flag;
+}
+int main(){
+    float n;
+ 
+    cout &lt;&lt; ("Nhap so= ");
+    cin &gt;&gt; n;
+
+    int check = check_real_integer_number(n);
+ 
+    if( check == 1 ) cout &lt;&lt; n &lt;&lt; " la so nguyen";
+    else cout &lt;&lt; n &lt;&lt; " khong phai la so nguyen";
+
+    return 0;
+}
+</pre><p><br></p><p><br></p><p><br></p>

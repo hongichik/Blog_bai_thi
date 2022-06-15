@@ -1,0 +1,13 @@
+<h1>Bài 11: Number trong Java</h1><p class="ql-align-justify">Thường thì, khi làm việc với Number, chúng ta sử dụng các kiểu dữ liệu gốc như byte, int, long, double, …</p><h2>Ví dụ:</h2><pre class="ql-syntax" spellcheck="false">int i = 5000;
+float gpa = 13.65;
+byte mask = 0xaf;
+</pre><p class="ql-align-justify">Tuy nhiên, khi mở rộng, chúng ta cũng gặp các tình huống mà chúng ta cần sử dụng các đối tượng thay cho các kiểu dữ liệu gốc. Để thực hiện điều này, Java cung cấp các lớp wrapper (lớp bọc) cho mỗi kiểu dữ liệu gốc.</p><p class="ql-align-justify">Tất cả các lớp wrapper (Integer, Long, Byte, Double, Float, Short) là lớp phụ của lớp trừu tượng Number.</p><p class="ql-align-justify">Sự bao bọc này được chăm sóc bởi bộ biên dịch, tiến trình này được gọi là boxing. Vì thế khi một kiểu dữ liệu gốc được sử dụng khi một đối tượng được yêu cầu, bộ biên dịch "đóng hộp" kiểu dữ liệu gốc trong lớp wrapper của nó. Tương tự, bộ biên dịch cũng "mở hộp" đối tượng thành một kiểu dữ liệu gốc.&nbsp;<em>Number</em>&nbsp;là một phần của java.lang package.</p><p class="ql-align-justify">Dưới đây là ví dụ của box và unbox:</p><pre class="ql-syntax" spellcheck="false">public class Test{
+
+   public static void main(String args[]){
+      Integer x = 5; // dong hop int thanh doi tuong Integer
+      x =  x + 10;   // mo hop Integer thanh int
+      System.out.println(x); 
+   }
+}
+</pre><p class="ql-align-justify">Nó sẽ cho kết quả sau:</p><pre class="ql-syntax" spellcheck="false">15
+</pre><p class="ql-align-justify">Khi x được gán các giá trị integer, bộ biên dịch "đóng hộp" giá trị integer này bởi vì x là đối tượng integer. Sau đó, x được "mở hộp" để mà chúng có thể được cộng thêm các integer.</p><p class="ql-align-justify"><br></p>

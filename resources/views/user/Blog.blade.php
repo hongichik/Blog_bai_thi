@@ -9,9 +9,9 @@
                 <div class="col-lg-8">
                     <div class="whats-news-wrapper">
                         <!-- Heading & Nav Button -->
-                            <div class="row justify-content-between align-items-end mb-15">
+                            <div class="row justify-content-between align-items-end ">
                                 <div class="col-xl-12">
-                                    <div class="section-tittle mb-30">
+                                    <div class="section-tittle">
                                         <h4>
                                             <a href="/">Home</a>
                                             /<a href="/Blog">Blog</a>   
@@ -23,11 +23,16 @@
                                 </div>
                             </div>
                             <!-- Tab content -->
-                            <div class="row">
+                            <div class="row p-3">
                                 <div class="col-12">
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">       
-                                        <div class="row p-3">
-                                            {!! $container !!}
+                                        <div class="row">
+                                            <div id="quill-container" style="font-size: 18px;" class="ql-container ql-snow">
+                                                <div class="ql-editor" >
+                                                    {!! $container !!}
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                     </div> 
                                 </div>

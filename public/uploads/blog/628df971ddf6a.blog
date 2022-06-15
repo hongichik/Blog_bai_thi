@@ -1,0 +1,11 @@
+<h1>Bài 2: Cú pháp C++ cơ bản</h1><p class="ql-align-justify">Đối tượng -&nbsp;Đối tượng có các trạng thái và hành vi. Ví dụ: một đối tượng dog có các trạng thái là color, name, breed, và các hành vi là wagging, barking, eating. Một đối tượng là một minh họa của một lớp.</p><p class="ql-align-justify">Lớp -&nbsp;Một lớp có thể được định nghĩa như là một template/blueprint, mà miêu tả hành vi/trạng thái mà đối tượng hỗ trợ.</p><p class="ql-align-justify">Phương thức -&nbsp;Về cơ bản, một phương thức là một hành vi. Một lớp có thể chứa nhiều phương thức. Phương thức là nơi tính logic được viết, dữ liệu được thao tác và tất cả action được thực thi.</p><p class="ql-align-justify">Biến instance -&nbsp;Mỗi đối tượng có tập hợp biến đối tượng duy nhất của nó. Trạng thái của một đối tượng được tạo ra bởi các giá trị được gán cho các biến đối tượng của nó.</p><h2>Cấu trúc chương trình C++</h2><p class="ql-align-justify">Bạn theo dõi một đoạn code đơn giản sẽ in&nbsp;<em>Hello World</em>.</p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+
+// Ham main() la noi su thuc thi chuong trinh bat dau
+
+int main()
+{
+   cout &lt;&lt; "Hello World"; // In dong chu Hello World
+   return 0;
+}
+</pre><p class="ql-align-justify"><br></p><ul><li class="ql-align-justify">Ngôn ngữ C++ định nghĩa một số header, mà chứa tong tin cần thiết và hữu ích cho chương trình của bạn. Với chương trình này, header là&nbsp;&lt;iostream&gt;&nbsp;là cần thiết.</li><li class="ql-align-justify">Dòng&nbsp;using namespace std;&nbsp;nói cho compiler sử dụng std namespace. Namespce là phần bổ sung gần đây cho C++.</li><li class="ql-align-justify">Dòng tiếp theo&nbsp;Ham main() la noi su thuc thi chuong trinh bat dau&nbsp;là một comment đơn dòng trong C++. Các comment đơn dòng bắt đầu với // và kết thúc ở cuối dòng.</li><li class="ql-align-justify">Dòng&nbsp;int main()&nbsp;là hàm main, tại đây việc thực thi chương trình bắt đầu.</li><li class="ql-align-justify">Dòng tiếp theo&nbsp;cout &lt;&lt; "Hello World";&nbsp;để in dòng chữ "Hello World" trên màn hình.</li><li class="ql-align-justify">Dòng tiếp theo&nbsp;return 0;&nbsp;kết thúc hàm main() và làm nó trả về giá trị 0 tới tiến trình đang gọi.</li></ul><p><br></p>

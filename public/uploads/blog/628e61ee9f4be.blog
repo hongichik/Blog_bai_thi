@@ -1,0 +1,23 @@
+<h1>Bài 12: Character trong Java</h1><p class="ql-align-justify">Thường thì, khi làm việc với các ký tự, chúng ta sử dụng kiểu dữ liệu char gốc.</p><h2>Ví dụ:</h2><pre class="ql-syntax" spellcheck="false">char ch = 'a';
+
+// Ma Unicode cho ky tu Greek omega dang chu hoa
+char uniChar = '\u039A'; 
+
+// Mot mang ky tu
+char[] charArray ={ 'a', 'b', 'c', 'd', 'e' }; 
+</pre><p class="ql-align-justify">Tuy nhiên, khi mở rộng làm việc, chúng ta thường gặp các tính huống cần sử dụng các đối tượng thay vì các kiểu dữ liệu gốc. Để thực hiện điều này, Java cung cấp lớp wrapper là&nbsp;Charater&nbsp;với kiểu dữ liệu char gốc.</p><p class="ql-align-justify">Lớp Character có một số phương thức hữu ích (ví dụ: static) để thao tác với các ký tự. Bạn có thể tạo một đối tượng Character với Character constructor.</p><pre class="ql-syntax" spellcheck="false">Character ch = new Character('a');
+</pre><p class="ql-align-justify">Bộ biên dịch Java sẽ cũng tạo một đối tượng Character cho bạn. Ví dụ, nếu bạn truyền một dữ liệu char gốc vào trong một phương thức mà cho một đối tượng, bộ biên dịch tự động biến đổi kiểu char tới một Character cho bạn. Tính năng này được gọi là autobox hoặc unbox, nếu sự biến đổi này theo hướng ngược lại.</p><h2>Ví dụ:</h2><pre class="ql-syntax" spellcheck="false">// O day la kieu char goc 'a'
+// duoc dong hop thanh doi tuong Character la ch
+Character ch = 'a';
+
+// Tai day kieu goc 'x' duoc dong hop cho phuong thuc test,
+// gia tri tra ve duoc mo hop cho ky tu 'c'
+char c = test('x');
+</pre><h2>Các ký tự ngắt văn bản trong Java</h2><p class="ql-align-justify">Một ký tự được đặt trước bởi một dấu gạch chéo ngược (\) là một ký tự ngắt và có ý nghĩa đặc biệt với bộ biên dịch.</p><p class="ql-align-justify">Ký tự dòng mới (\n) thường được sử dụng trong bài học có trong lệnh System.out.println() để có được dòng tiếp theo sau khi chuỗi được in.</p><h2>Ví dụ:</h2><p class="ql-align-justify">Nếu bạn muốn đặt các trích dẫn bên trong các trích dẫn, bạn phải sử dụng ký tự ngắt, \", trong trích dẫn bên trong.</p><pre class="ql-syntax" spellcheck="false">public class Test {
+
+   public static void main(String args[]) {
+      System.out.println("Co ta noi \"Hello!\" voi toi.");
+   }
+}
+</pre><p class="ql-align-justify">Nó sẽ cho kết quả:</p><pre class="ql-syntax" spellcheck="false">Co ta noi "Hello!" voi toi.
+</pre><p class="ql-align-justify"><br></p>

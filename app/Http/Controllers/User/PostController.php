@@ -13,10 +13,9 @@ class PostController extends Controller
 {
     public function viewCommentPost(Request $request)
     {
-        $postChilld = postChilld::where('id',$request->id)->first();
-        $post = Post::where('id',$postChilld->post_id)->first();
+        $post = Post::where('id',$request->id)->first();
 
-        return redirect('/PostChill/'.$post->name.'/'.$postChilld->name);
+        return redirect('/Post/'.$post->name);
     }
     public function PostChill(Request $request,$NamePost,$NamePostChill)
     {

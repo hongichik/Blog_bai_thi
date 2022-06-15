@@ -1,0 +1,23 @@
+<h1>Bài 9: Hàm main trong C++ là gì?</h1><h2><strong>Hàm main trong C++ là gì</strong></h2><p>Tương tự như C thì trong ngôn ngữ C++, một chương trình là một tập hợp các hàm, với mỗi hàm trong chương trình là “tập hợp các quy trình” cần xử lý. Và trong các hàm đó thì&nbsp;<strong>hàm main trong C++</strong>&nbsp;là&nbsp;<strong>hàm đầu tiên được thực thi</strong>&nbsp;khi bắt đầu chạy một chương trình C++.</p><p><span style="color: rgb(51, 51, 51);">Và khi hàm main kết thúc cũng là lúc kết thúc chương trình. Bởi vậy các hàm khác hàm main không có vai trò gì trong chương trình cả, trừ khi chúng được gọi trong hàm main.</span></p><h2><strong>Hàm main là hàm được thực thi đầu tiên trong chương trình</strong></h2><p>Trong bài thứ tự thực thi của chương trình C++, chúng ta đã biết chương trình C++ sẽ được thực hiện các lệnh theo thứ tự chúng được viết trong chương trình, và cụ thể thì các lệnh sẽ được thực hiện theo thứ tự từ trên xuống dưới giống như dòng chảy của sông ra biển vậy.</p><p>Tuy nhiên điều đó không có nghĩa là chương trình trong C++ sẽ bắt đầu thực thi từ câu lệnh đầu tiên cho đến cuối cùng được ghi.</p><p><span style="color: rgb(51, 51, 51);">Thật vậy, giống như ví dụ về chương trình Helllo World mà chúng ta đã sử dụng nhiều lần sau đây, thì chương trình C++ không phải bắt đầu được chạy từ dòng đầu tiên&nbsp;</span><code style="color: rgb(51, 51, 51); background-color: rgb(249, 242, 244);">#include &lt;iostream&gt;</code><span style="color: rgb(51, 51, 51);">, mà là bắt đầu từ dòng lệnh&nbsp;</span><code style="color: rgb(51, 51, 51); background-color: rgb(249, 242, 244);">int main{</code><span style="color: rgb(51, 51, 51);">&nbsp;có tác dụng bắt đầu hàm main trong C++.</span></p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+
+int main{
+  cout &lt;&lt; ("Hello World!\n");
+  return 0;
+}
+</pre><p>Một chương trình viết bởi ngôn ngữ C++ sẽ&nbsp;<strong>được bắt đầu bằng cách thực thi hàm main, và cũng kết thúc khi hàm main này đã kết thúc</strong>. Do đó các câu lệnh, hoặc hàm kể cả được viết trước hàm main đi chăng nữa, thì cũng chỉ được thực thi sau khi được gọi ở bên trong hàm main mà thôi.</p><p>Ví dụ trong chương trình sau đây, mặc dù hàm&nbsp;<code style="background-color: rgb(249, 242, 244); color: rgb(51, 51, 51);">timChuVi()</code>&nbsp;được&nbsp;<strong>khai báo trước hàm main</strong>, nhưng do chúng ta không gọi hàm này trong hàm main, nên hàm timChuVi() thực tế đã không hề chạy hay có tác dụng gì trong chương trình của chúng ta cả.</p><p>COPY</p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+
+//Tạo một hàm tìm chu vi đường tròn:
+int timChuVi(float r) {
+    float area = pi * r * r;
+    return area;
+}
+
+//Tuy nhiên do không sử dụng hàm ở trên trong hàm main,
+//nên hàm tìm chu vi ở trên đã không được chạy trong chương trình.
+int main{
+  cout &lt;&lt; ("Hello World!\n");
+  return 0;
+}
+</pre><p><br></p><p><br></p>

@@ -1,0 +1,47 @@
+<h1>Memory cache là gì?</h1><p>1. Memory cache là gì: In-memory cache sử dụng bộ nhớ(RAM) của máy server để lưu trữ data. Những data nào thường được lưu cache thỏa mãn 2 yếu tố: data được truy cập thường xuyên và ít thay đổi.</p><p>Mục đích của sử dụng memory cache hay bất kỳ loại cache nào là đều muốn cải thiện hiệu suất chương trình.</p><p>Ví dụ: lấy ra danh sách 100 sản phẩm bán chạy mỗi tháng. (dữ liệu này thỏa mãn tiêu chí ít thay đổi (1 tháng thay đổi 1 lần) + truy cập thường xuyên khi người dùng filter danh sách sản phẩm bán chạy). Ta có thể lưu cache cho data này để giảm thời gian truy cập xuống database để lấy dữ liệu.</p><p>Lưu ý: In-memory cache phù hợp cho 1 server duy nhất hoặc nhiều server có sử dụng&nbsp;<em>sticky sessions</em>.</p><p>Chỗ này mình sẽ giải thích sơ qua sticky session là gì?(Phần này liên quan đến kiến thức về load balancin) . Sticky session là một trong những tính năng cơ bản của load balancing cho phép định tuyến một máy chủ đơn lẻ cho một người dùng cụ thể, dựa trên HTTP session hoặc IP của họ.</p><p>Tại sao mình phải lưu ý vấn đề ở trên:</p><ul><li>Nếu chỉ có 1 máy server thì khi ta lưu cache chỉ lưu trên bộ nhớ của máy server duy nhất đó =&gt; không xảy ra vấn đề gì.</li><li>Trong trường hợp có nhiều máy server (thông thường các hệ thống lớn đều xài multiple servers). Server A, B, C, D… Khi ta lưu cache thì ta sẽ chỉ lưu ở một máy server A. Vậy khi lấy cache ra làm sao biết được ta sẽ lấy ở máy server nào trong nhiều servers. Sticky session sẽ giúp ta làm việc đó.</li></ul><p>Thêm 1 lưu ý khi sử dụng nếu ta lưu quá nhiều memory cache thì sẽ tốn dung lượng lưu trữ dẫn đến server bị chậm.</p><p>2. Thực hành sử dụng memory cache trong .net core</p><p>Phần này để hiểu được cần có kiến thức cơ bản về c# và .net core</p><p>Trong .net core có hỗ trợ sẵn memory cache(IMemoryCache) vậy nên ta không cần phải xài third party.</p><ul><li>Cấu hình service memory cache để sử dụng:</li></ul><pre class="ql-syntax" spellcheck="false">       public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddMemoryCache();
+        }
+</pre><ul><li>Sử dụng dependence injection để inject IMemoryCache</li></ul><pre class="ql-syntax" spellcheck="false">    public class IndexModel : PageModel
+    {
+        private readonly ILogger&lt;IndexModel&gt; _logger;
+        private IMemoryCache cache;
+
+        public IndexModel(ILogger&lt;IndexModel&gt; logger, IMemoryCache cache)
+        {
+            _logger = logger;
+            this.cache = cache;
+        }
+}
+</pre><ul><li>Set data cho cache bao gồm key và value(value có thể là kiểu int, string, double, object…)</li></ul><pre class="ql-syntax" spellcheck="false"> cache.Set&lt;string&gt;("timeCache", DateTime.Now.ToString());
+ var listUser = new List&lt;User&gt;()
+     {
+          new User
+          {
+                 Id = 1,
+                 Name = "Iron man"
+           },
+          new User
+          {
+                Id = 2,
+                Name = "Spider man"
+          }
+    };
+cache.Set&lt;List&lt;User&gt;&gt;("ListUser", listUser);
+</pre><ul><li>Lấy dữ liệu từ cache ta dùng phương thức get</li></ul><pre class="ql-syntax" spellcheck="false">ViewData["expiredCache"] = cache.Get&lt;string&gt;("expiredCache");
+</pre><ul><li>Sử dụng tryGet để kiểm tra sự tồn tại của key</li></ul><pre class="ql-syntax" spellcheck="false"> if (!cache.TryGetValue&lt;string&gt;("timeCache", out string timeCache))
+            {
+                ViewData["ExistingCache"] = "Cache với key: timeCache không tồn tại";
+                cache.Set&lt;string&gt;("timeCache", DateTime.Now.ToString());
+            }
+            else
+            {
+                ViewData["ExistingCache"] = $"Cache với key: timeCache đã tồn tại với value: {timeCache}";
+            }
+</pre><ul><li>Sử dụng GetOrCreate để tạo 1 cache mới nếu chưa tồn tại</li></ul><pre class="ql-syntax" spellcheck="false">            var timeCacheGetOrCreate = cache.GetOrCreate&lt;string&gt;("timeCacheGetOrCreate", entry =&gt;
+            {
+                return DateTime.Now.ToString();
+            });
+</pre><ul><li>Xóa cache</li></ul><pre class="ql-syntax" spellcheck="false">cache.Remove("expiredCache");
+</pre><p>Source demo:&nbsp;<a href="https://fullstack.edu.vn/blog/co-ban-memory-cache-la-gi.html" rel="noopener noreferrer" target="_blank" style="color: var(--primary-color);">https://github.com/TechMarDay/Cache</a></p><p>Tham khảo:&nbsp;<a href="https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-5.0" rel="noopener noreferrer" target="_blank" style="color: var(--primary-color);">https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-5.0</a></p><p><br></p><p><br></p>

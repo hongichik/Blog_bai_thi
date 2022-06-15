@@ -90,8 +90,8 @@
                         <td>{{data.count}}</td>
                         <td>{{data.updated_at}}</td>
                         <td>
-                            <a v-if="!data.nameCaegory" :href="'/viewCommentPost?id='+data.id">Đi tới bài Blog</a>
-                            <a v-if="data.nameCaegory" :href="'/viewCommentBlog?id='+data.id">Đi tới bài viết</a>
+                            <a v-if="!data.nameCaegory" :href="'/viewCommentBlog?id='+data.id">Đi tới bài Blog</a>
+                            <a v-if="data.nameCaegory" :href="'/viewCommentPost?id='+data.id">Đi tới bài viết</a>
                         </td>
                     </tr>
                 </tbody>

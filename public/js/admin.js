@@ -45198,7 +45198,7 @@ var render = function () {
                     !data.nameCaegory
                       ? _c(
                           "a",
-                          { attrs: { href: "/viewCommentPost?id=" + data.id } },
+                          { attrs: { href: "/viewCommentBlog?id=" + data.id } },
                           [_vm._v("Đi tới bài Blog")]
                         )
                       : _vm._e(),
@@ -45206,7 +45206,7 @@ var render = function () {
                     data.nameCaegory
                       ? _c(
                           "a",
-                          { attrs: { href: "/viewCommentBlog?id=" + data.id } },
+                          { attrs: { href: "/viewCommentPost?id=" + data.id } },
                           [_vm._v("Đi tới bài viết")]
                         )
                       : _vm._e(),

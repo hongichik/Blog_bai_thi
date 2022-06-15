@@ -1,0 +1,66 @@
+<h1>Bài 1: Kiểm tra số chẵn lẻ trong C++</h1><h2><strong>Kiểm tra số chẵn lẻ trong C++ bằng phép toán chia lấy dư</strong></h2><p>Chúng ta đều biết số chẵn là số chia hết cho 2, còn số lẻ chia 2 thì dư 1. Bằng cách kiểm tra phần dư của phép chia số với 2, chúng ta có thể dễ dàng kiểm tra số đã cho là số chẵn hay lẻ. Toán tử sử dụng ở đây là toán tử chia lấy dư&nbsp;<code style="background-color: rgb(249, 242, 244); color: rgb(51, 51, 51);">%</code>.</p><pre class="ql-syntax" spellcheck="false"><span style="color: black; font-size: 16px; font-family: Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">
+</span></pre><p><span style="color: black; font-size: 16px; font-family: Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Chúng ta có thể gọi hàm này và sử dụng trong chương trình&nbsp;</span><strong style="color: black; font-size: 16px; font-family: Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">nhập n kiểm tra n là số chẵn hay lẻ trong C++</strong><span style="color: black; font-size: 16px; font-family: Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">&nbsp;như sau:</span></p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+
+int check_odd_even(int n){
+    //flag = 1 =&gt; số lẻ 
+    //flag = 0 =&gt; số chẵn
+
+    int flag = 1;
+    if( n % 2 == 0 ) flag= 0;
+    return flag;  
+}
+
+int main(){
+    cout &lt;&lt; ("Nhap so nguyen= ");
+    int n;
+    cin &gt;&gt;  n;
+
+    int check = check_odd_even(n);
+ 
+    if( check == 0 ) cout &lt;&lt; n &lt;&lt; " la so chan";
+    else cout &lt;&lt; n &lt;&lt; " la so le";
+    return 0;
+}
+</pre><p>Màn hình nhập liệu và kết quả kiểm tra số chẵn lẻ sẽ như sau:</p><pre class="ql-syntax" spellcheck="false">Nhap so nguyen= 88
+88 la so chan
+
+Nhap so nguyen= 5
+5 la so le
+</pre><h2><strong>Kiểm tra số chẵn lẻ trong C++ bằng toán tử thao tác bit AND</strong></h2><p>Một phương pháp khác để kiểm tra số chẵn lẻ trong C++ là sử dụng toán tử thao tác bit AND.&nbsp;<strong>Kết quả phép toán bit AND giữa số lẻ với số 1 luôn bằng 1</strong>, nên sử dụng kết quả này chúng ta có thể tạo hàm kiểm tra số chẵn lẻ trong C++ như sau:</p><pre class="ql-syntax" spellcheck="false">int check_odd_even_bit(int n){
+    //flag = 1 =&gt; số lẻ 
+    //flag = 0 =&gt; số chẵn
+
+    int flag = 0;
+    if( n &amp; 1 == 1 ) flag= 1;
+    return flag;
+}
+</pre><p>Chúng ta có thể gọi hàm này và sử dụng trong chương trình như sau:</p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+
+int check_odd_even_bit(int n){
+    //flag = 1 =&gt; số lẻ 
+    //flag = 0 =&gt; số chẵn
+
+    int flag = 0;
+    if( n &amp; 1 == 1 ) flag= 1;
+    return flag;
+}
+
+int main(){
+    cout &lt;&lt; ("Nhap so nguyen= ");
+    int n;
+    cin &gt;&gt;  n;
+
+    int check = check_odd_even_bit(n);
+ 
+    if( check == 0 ) cout &lt;&lt; n &lt;&lt; " la so chan";
+    else cout &lt;&lt; n &lt;&lt; " la so le";
+    return 0;
+}
+</pre><p>Màn hình nhập liệu và kết quả kiểm tra số chẵn lẻ sẽ như sau:</p><pre class="ql-syntax" spellcheck="false">Nhap so nguyen= 88
+88 la so chan
+
+Nhap so nguyen= 5
+5 la so le
+</pre><p><br></p>

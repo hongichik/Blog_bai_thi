@@ -1,0 +1,21 @@
+<h1>Bài 10: Xuống dòng trong C++</h1><h2><strong>Xuống dòng trong C++</strong></h2><p>Về cơ bản, một câu lệnh trong C++ có thể được viết trên một hoặc nhiều dòng và được kết thúc bằng cách sử dụng dấu chấm than&nbsp;<code style="background-color: rgb(249, 242, 244); color: rgb(51, 51, 51);">;</code>&nbsp;ở cuối câu.</p><p>Và bạn có thể tùy ý&nbsp;<strong>xuống dòng trong C++</strong>&nbsp;bằng cách nhấn phím ENTER khi đang viết một câu lệnh. Các khoảng trống này cũng sẽ được bỏ qua khi chương trình được xử lý.</p><p>Đây là điểm này rất khác biệt so với các ngôn ngữ khác như Python vốn dùng xuống dòng tạo bởi phím ENTER để kết thúc câu lệnh.</p><ul><li>Bạn có tham khảo sự khác biệt tại bài viết&nbsp;<a href="https://laptrinhcanban.com/python/nhap-mon-lap-trinh-python/kien-thuc-can-ban-ve-chuong-trinh-python/xuong-dong-trong-python/" rel="noopener noreferrer" target="_blank" style="color: rgb(30, 121, 167);">Xuống dòng trong Python</a></li></ul><p>Ví dụ, chúng ta có thể xuống dòng bên trong câu lệnh C++ tùy ý như sau:</p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+int main() {
+    string
+     str1 = "Hello";
+    string str2 =
+     ", Việt Nam";
+    cout &lt;&lt; str1
+     &lt;&lt;str2;
+    return 0;
+}
+</pre><p>Kết quả của ví dụ trên cũng giống như cách viết sau:</p><pre class="ql-syntax" spellcheck="false">#include &lt;iostream&gt;
+using namespace std;
+int main() {
+    string str1 = "Hello";
+    string str2 = ", Việt Nam";
+    cout &lt;&lt; str1 &lt;&lt;str2;
+    return 0;
+}
+</pre><p>Kết quả</p><pre class="ql-syntax" spellcheck="false">Hello, Việt Nam
+</pre><p>Tuy nhiên, chúng ta không thể xuống dòng bằng phím ENTER ở giữa một đối tượng ( tên biến, từ khóa, chuỗi v.v..) trong C++ được. Do xuất hiện xuống dòng giữa đối tượng nên đã khiến đối tượng đó thay đổi tính chất.</p>

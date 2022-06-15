@@ -151,7 +151,7 @@
                         <!-- Details -->
                         <div class="most-recent mb-40">
                             <div class="most-recent-img">
-                                <img style="aspect-ratio: 2 / 1;width: 100%;;object-fit: cover;" src="/api/ShowImg/{{ $blogDetails[0]['image'] }}" alt="">
+                                <img style="aspect-ratio: 2 / 1;width: 100%;object-fit: cover;" src="/api/ShowImg/{{ $blogDetails[0]['image'] }}" alt="">
                                 <div class="most-recent-cap">
                                     <h4><a href="/Blog/{{ $blogDetails[0]['name'] }}">{{ $blogDetails[0]['name'] }}</a></h4>
                                     <p>Viết lúc : {{ $blogDetails[0]['created_at'] }}</p>
